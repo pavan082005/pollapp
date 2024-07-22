@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ question.question }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .choices {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .choice-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .choice-item:last-child {
+            border-bottom: none;
+        }
+
+        .choice-text {
+            font-weight: bold;
+        }
+
+        .votes {
+            color: #555;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .back-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ question.question }}</h1>
+        <ul class="choices">
+            {% for choice in question.choice_set.all %}
+                <li class="choice-item">
+                    <span class="choice-text">{{ choice.choice }}</span>
+                    <span class="votes">-- {{ choice.votes }} vote{{ choice.votes|pluralize }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'poll:index' %}" class="back-link">Back to poll</a>
+    </div>
+</body>
+</html>
