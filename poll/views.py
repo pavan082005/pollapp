@@ -1,4 +1,4 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
@@ -84,7 +84,11 @@ def signin(request):
             return redirect('poll:index')
         else:
             messages.error(request, "Invalid credentials")
-            return redirect('signin')
+            return redirect('poll:signin')
 
     return render(request, "poll/signin.html")
 
+def signout(request):
+    logout(request)
+    messages.success(request, "Logged out successfully")
+    return redirect('poll:signin')
